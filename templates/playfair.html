@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playfair Cipher - Bảo Mật Thông Tin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .main-container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+        margin-top: 3vh;
+        backdrop-filter: blur(10px);
+      }
+      .cipher-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .cipher-title {
+        color: #e84393;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      .cipher-description {
+        color: #636e72;
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .form-container {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+      .form-label {
+        font-weight: 600;
+        color: #2d3436;
+        margin-bottom: 0.5rem;
+      }
+      .form-control {
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        padding: 12px;
+        transition: all 0.3s ease;
+      }
+      .form-control:focus {
+        border-color: #fd79a8;
+        box-shadow: 0 0 0 0.2rem rgba(253, 121, 168, 0.25);
+      }
+      .btn-cipher {
+        background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        margin: 10px 5px;
+      }
+      .btn-cipher:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+        color: white;
+      }
+      .result-container {
+        background: #e8f5e8;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        border-left: 5px solid #00b894;
+      }
+      .result-title {
+        color: #00b894;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .result-text {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        word-break: break-all;
+        font-family: "Courier New", monospace;
+      }
+      .btn-home {
+        background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 10px 25px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .btn-home:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(45, 52, 54, 0.3);
+        color: white;
+        text-decoration: none;
+      }
+      .info-box {
+        background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 5px solid #e17055;
+      }
+      .matrix-visual {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 2px solid #ddd;
+        font-family: "Courier New", monospace;
+        text-align: center;
+      }
+      .matrix-table {
+        margin: 0 auto;
+      }
+      .matrix-table td {
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        font-weight: bold;
+        background: #f8f9fa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-container">
+        <!-- Header -->
+        <div class="cipher-header">
+          <h1 class="cipher-title">
+            <i class="fas fa-th me-3"></i>
+            PLAYFAIR CIPHER
+          </h1>
+          <p class="cipher-description">
+            Playfair Cipher là thuật toán mã hóa được phát minh bởi Charles
+            Wheatstone năm 1854. Sử dụng ma trận 5x5 và mã hóa từng cặp ký tự để
+            tăng độ bảo mật so với các cipher đơn ký tự.
+          </p>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+          <h5><i class="fas fa-info-circle me-2"></i>Cách hoạt động:</h5>
+          <p class="mb-2">Ví dụ với khóa "MONARCHY":</p>
+          <div class="matrix-visual">
+            <table class="matrix-table">
+              <tr>
+                <td>M</td>
+                <td>O</td>
+                <td>N</td>
+                <td>A</td>
+                <td>R</td>
+              </tr>
+              <tr>
+                <td>C</td>
+                <td>H</td>
+                <td>Y</td>
+                <td>B</td>
+                <td>D</td>
+              </tr>
+              <tr>
+                <td>E</td>
+                <td>F</td>
+                <td>G</td>
+                <td>I</td>
+                <td>K</td>
+              </tr>
+              <tr>
+                <td>L</td>
+                <td>P</td>
+                <td>Q</td>
+                <td>S</td>
+                <td>T</td>
+              </tr>
+              <tr>
+                <td>U</td>
+                <td>V</td>
+                <td>W</td>
+                <td>X</td>
+                <td>Z</td>
+              </tr>
+            </table>
+          </div>
+          <p class="mb-0">
+            <strong>Quy tắc:</strong> Cùng hàng → dịch phải, Cùng cột → dịch
+            xuống, Khác hàng/cột → hoán đổi cột
+          </p>
+        </div>
+
+        <!-- Encryption Form -->
+        <div class="form-container">
+          <h3 class="text-center mb-4">
+            <i class="fas fa-lock me-2"></i>Mã Hóa
+          </h3>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="encryptText" class="form-label">Văn bản gốc:</label>
+              <textarea
+                class="form-control"
+                id="encryptText"
+                rows="4"
+                placeholder="Nhập văn bản cần mã hóa (chỉ chữ cái)..."
+              ></textarea>
+            </div>
+            <div class="col-md-4">
+              <label for="encryptKey" class="form-label">Khóa:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="encryptKey"
+                placeholder="Ví dụ: MONARCHY"
+              />
+              <small class="text-muted">Chỉ chữ cái, không trùng lặp</small>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button class="btn btn-cipher" onclick="encryptText()">
+              <i class="fas fa-lock me-2"></i>Mã Hóa
+            </button>
+          </div>
+        </div>
+
+        <!-- Decryption Form -->
+        <div class="form-container">
+          <h3 class="text-center mb-4">
+            <i class="fas fa-unlock me-2"></i>Giải Mã
+          </h3>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="decryptText" class="form-label"
+                >Văn bản đã mã hóa:</label
+              >
+              <textarea
+                class="form-control"
+                id="decryptText"
+                rows="4"
+                placeholder="Nhập văn bản cần giải mã..."
+              ></textarea>
+            </div>
+            <div class="col-md-4">
+              <label for="decryptKey" class="form-label">Khóa:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="decryptKey"
+                placeholder="Ví dụ: MONARCHY"
+              />
+              <small class="text-muted">Phải giống với khóa mã hóa</small>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button class="btn btn-cipher" onclick="decryptText()">
+              <i class="fas fa-unlock me-2"></i>Giải Mã
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Container -->
+        <div
+          id="resultContainer"
+          class="result-container"
+          style="display: none"
+        >
+          <h4 class="result-title">
+            <i class="fas fa-check-circle me-2"></i>Kết quả:
+          </h4>
+          <div id="resultText" class="result-text"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="text-center mt-4">
+          <a href="/" class="btn-home">
+            <i class="fas fa-home me-2"></i>Về Trang Chủ
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function showResult(result, isSuccess = true) {
+        const container = document.getElementById("resultContainer");
+        const resultText = document.getElementById("resultText");
+
+        resultText.textContent = result;
+        container.style.display = "block";
+
+        if (!isSuccess) {
+          container.className = "result-container";
+          container.style.background = "#ffe8e8";
+          container.style.borderLeft = "5px solid #e74c3c";
+          document.querySelector(".result-title").style.color = "#e74c3c";
+        } else {
+          container.className = "result-container";
+          container.style.background = "#e8f5e8";
+          container.style.borderLeft = "5px solid #00b894";
+          document.querySelector(".result-title").style.color = "#00b894";
+        }
+
+        container.scrollIntoView({ behavior: "smooth" });
+      }
+
+      async function encryptText() {
+        const text = document.getElementById("encryptText").value;
+        const key = document.getElementById("encryptKey").value;
+
+        if (!text.trim()) {
+          showResult("Vui lòng nhập văn bản cần mã hóa!", false);
+          return;
+        }
+
+        if (!key.trim()) {
+          showResult("Vui lòng nhập khóa!", false);
+          return;
+        }
+
+        if (!/^[a-zA-Z]+$/.test(key)) {
+          showResult("Khóa chỉ được chứa các ký tự chữ cái!", false);
+          return;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(text)) {
+          showResult(
+            "Văn bản chỉ được chứa các ký tự chữ cái và khoảng trắng!",
+            false
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/playfair/encrypt", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: text.replace(/\s/g, ""), key: key }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showResult(
+              `Văn bản gốc: ${text}\nKhóa: ${key}\nVăn bản đã mã hóa: ${result.result}`
+            );
+          } else {
+            showResult(`Lỗi: ${result.error}`, false);
+          }
+        } catch (error) {
+          showResult(`Lỗi kết nối: ${error.message}`, false);
+        }
+      }
+
+      async function decryptText() {
+        const text = document.getElementById("decryptText").value;
+        const key = document.getElementById("decryptKey").value;
+
+        if (!text.trim()) {
+          showResult("Vui lòng nhập văn bản cần giải mã!", false);
+          return;
+        }
+
+        if (!key.trim()) {
+          showResult("Vui lòng nhập khóa!", false);
+          return;
+        }
+
+        if (!/^[a-zA-Z]+$/.test(key)) {
+          showResult("Khóa chỉ được chứa các ký tự chữ cái!", false);
+          return;
+        }
+
+        if (!/^[a-zA-Z]+$/.test(text)) {
+          showResult(
+            "Văn bản đã mã hóa chỉ được chứa các ký tự chữ cái!",
+            false
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/playfair/decrypt", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: text, key: key }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showResult(
+              `Văn bản đã mã hóa: ${text}\nKhóa: ${key}\nVăn bản gốc: ${result.result}`
+            );
+          } else {
+            showResult(`Lỗi: ${result.error}`, false);
+          }
+        } catch (error) {
+          showResult(`Lỗi kết nối: ${error.message}`, false);
+        }
+      }
+    </script>
+  </body>
+</html>
