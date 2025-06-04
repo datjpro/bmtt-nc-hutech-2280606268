@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RSA Encryption Tool</string>
+  </property>
+  <property name="styleSheet">
+   <string>QMainWindow {
+    background-color: #ecf0f1;
+   }</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="main_layout">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="title_label">
+      <property name="text">
+       <string>RSA Encryption &amp; Digital Signature Tool</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="styleSheet">
+       <string>font-size: 18px; font-weight: bold; color: #2c3e50; margin: 10px;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_gen_keys">
+      <property name="text">
+       <string>🔑 Generate RSA Keys</string>
+      </property>
+      <property name="styleSheet">
+       <string>QPushButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+QPushButton:hover {
+    background-color: #2980b9;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="encryption_group">
+      <property name="text">
+       <string>📝 ENCRYPTION / DECRYPTION</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-size: 16px; font-weight: bold; color: #34495e; margin-top: 20px;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="plain_label">
+      <property name="text">
+       <string>Plain Text:</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-weight: bold; color: #2c3e50;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="txt_plain_text">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>Enter your message here...</string>
+      </property>
+      <property name="styleSheet">
+       <string>QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+}
+QTextEdit:focus {
+    border-color: #3498db;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="encrypt_layout">
+      <item>
+       <widget class="QPushButton" name="btn_encrypt">
+        <property name="text">
+         <string>🔒 Encrypt</string>
+        </property>
+        <property name="styleSheet">
+         <string>QPushButton {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+QPushButton:hover {
+    background-color: #229954;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_decrypt">
+        <property name="text">
+         <string>🔓 Decrypt</string>
+        </property>
+        <property name="styleSheet">
+         <string>QPushButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+QPushButton:hover {
+    background-color: #c0392b;
+}</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="cipher_label">
+      <property name="text">
+       <string>Cipher Text (Hex):</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-weight: bold; color: #2c3e50;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="txt_cipher_text">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>Encrypted data will appear here...</string>
+      </property>
+      <property name="styleSheet">
+       <string>QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    background-color: #f8f9fa;
+}
+QTextEdit:focus {
+    border-color: #3498db;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="signature_group">
+      <property name="text">
+       <string>✍️ DIGITAL SIGNATURE</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-size: 16px; font-weight: bold; color: #34495e; margin-top: 20px;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="info_label">
+      <property name="text">
+       <string>Message to Sign/Verify:</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-weight: bold; color: #2c3e50;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="txt_info">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>Enter message to sign or verify...</string>
+      </property>
+      <property name="styleSheet">
+       <string>QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+}
+QTextEdit:focus {
+    border-color: #3498db;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="sign_layout">
+      <item>
+       <widget class="QPushButton" name="btn_sign">
+        <property name="text">
+         <string>✍️ Sign Message</string>
+        </property>
+        <property name="styleSheet">
+         <string>QPushButton {
+    background-color: #9b59b6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+QPushButton:hover {
+    background-color: #8e44ad;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_verify">
+        <property name="text">
+         <string>✅ Verify Signature</string>
+        </property>
+        <property name="styleSheet">
+         <string>QPushButton {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+QPushButton:hover {
+    background-color: #e67e22;
+}</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="signature_label">
+      <property name="text">
+       <string>Digital Signature (Hex):</string>
+      </property>
+      <property name="styleSheet">
+       <string>font-weight: bold; color: #2c3e50;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="txt_sign">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="placeholderText">
+       <string>Digital signature will appear here...</string>
+      </property>
+      <property name="styleSheet">
+       <string>QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    background-color: #f8f9fa;
+}
+QTextEdit:focus {
+    border-color: #3498db;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="footer_label">
+      <property name="text">
+       <string>💡 Tip: Generate keys first, then you can encrypt/decrypt messages and create digital signatures</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="styleSheet">
+       <string>color: #7f8c8d; font-style: italic; margin-top: 10px;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
