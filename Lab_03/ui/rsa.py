@@ -5,7 +5,7 @@ class Ui_MainWindow:
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 700)
-        MainWindow.setWindowTitle("RSA Encryption Tool")
+        MainWindow.setWindowTitle("RSA SIUUUUUUUU!")
         
         self.centralwidget = QWidget(MainWindow)
         MainWindow.setCentralWidget(self.centralwidget)

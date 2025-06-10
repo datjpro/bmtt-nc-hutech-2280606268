@@ -91,7 +91,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "RSA Encryption Tool"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "RSA SIUUUUUU!"))
         MainWindow.setStyleSheet(_translate("MainWindow", "QMainWindow {\n"
 "    background-color: #ecf0f1;\n"
 "   }"))
